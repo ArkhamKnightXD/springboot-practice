@@ -1,5 +1,8 @@
 package com.example.springbootPrimerPrograma.controlador;
 
+import com.example.springbootPrimerPrograma.modelo.Persona;
+import com.example.springbootPrimerPrograma.repositorio.IPersona;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +15,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/thymeleaf/")
 public class MVCController {
 
+    // Aqui instanciamo la instancia ipersona para poder trabajar con esta en la vista
+    @Autowired
+    private IPersona persona;
+
     //Ejemplo de como mandar texto y variables a la vista desde el controlador, para mandar datos a una url
     // utilizamos el ? seguido de la variable y su valor asi como se ve en la url de abajo
     //Para ejecutar: http://localhost:8080/thymeleaf/?matricula=20011136
 
     @RequestMapping(path = "/")
     public String index(Model model, @RequestParam(name = "matricula") int matricula){
-        //
+
+
+        // Aqui puedo agregar la logica de negocio en la que implementare Ipersona
+
+        // Ejemplo de como guardar una entidad
+        Persona persona1 = new Persona();
+
+        persona1.setIdPersona(1);
+        persona1.setNombre("Karvin");
+
+        persona.save(persona1);
+
+
+        //De esta forma es que mando los atributos a la vista
+
         model.addAttribute("titulo", "Pagina desde Thymeleaf");
         model.addAttribute("mensaje", "Pagina desde Thymeleaf");
         model.addAttribute("matricula", matricula);
+
         // direccioando a la vista.
         return "/thymeleaf/holamundo";
     }
@@ -51,5 +73,21 @@ public class MVCController {
 
         return "/thymeleaf/holamundo";
     }
+
+
+    // Ejemplo de como mandar datos por defecto
+    @RequestMapping(path = "/defaultmessage")
+    public String indexDefault(Model model, @RequestParam(name = "matricula",required = false, defaultValue = "Mensaje por defecto") String matricula){
+
+        //De esta forma es que mando los atributos a la vista
+
+        model.addAttribute("titulo", "Pagina desde Thymeleaf");
+        model.addAttribute("mensaje", "Pagina desde Thymeleaf");
+        model.addAttribute("matricula", matricula);
+
+        // direccioando a la vista.
+        return "/thymeleaf/holamundo";
+    }
+
 
 }
