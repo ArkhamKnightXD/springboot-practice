@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de personas</title>
+</head>
+<body>
+
+    <table>
+        <!--Ejemplo de como hacer un foreach en thymeleaf para recorrer las personas almacenadas en la base de datos -->
+        <th:block th:each = "persona : ${listaPersonas}">
+            <tr>
+                <td th:text="${persona.idPersona}"></td>
+                <td th:text="${persona.nombre}"></td>
+            </tr>
+
+        </th:block>
+
+
+    </table>
+
+</body>
+</html>

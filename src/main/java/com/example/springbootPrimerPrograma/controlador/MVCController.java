@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/thymeleaf/")
 public class MVCController {
 
-    // Aqui instanciamo la instancia ipersona para poder trabajar con esta en la vista
+    // Aqui instanciamos la instancia ipersona para poder trabajar con esta en la vista
     @Autowired
     private IPersona persona;
 
@@ -25,17 +25,6 @@ public class MVCController {
 
     @RequestMapping(path = "/")
     public String index(Model model, @RequestParam(name = "matricula") int matricula){
-
-
-        // Aqui puedo agregar la logica de negocio en la que implementare Ipersona
-
-        // Ejemplo de como guardar una entidad
-        Persona persona1 = new Persona();
-
-        persona1.setIdPersona(1);
-        persona1.setNombre("Karvin");
-
-        persona.save(persona1);
 
 
         //De esta forma es que mando los atributos a la vista
@@ -65,14 +54,40 @@ public class MVCController {
 
     // prueba de que se pueden mandar datos a la misma plantilla desde otro request, sin necesidad de mandar todos los
     // parametros, pues como vemos aqui no se ha mandado la matricula
-    @RequestMapping(path = "/holamundo")
+    @RequestMapping(path = "/agregar")
     public String indexSameAsFirst(Model model){
 
+        // Aqui puedo agregar la logica de negocio en la que implementare Ipersona
+
+        // Ejemplo de como guardar una entidad, en la base de datos
+        Persona persona1 = new Persona();
+
+        persona1.setIdPersona(1);
+        persona1.setNombre("Karvin");
+
+        // con este comando guardo la persona en la base de datos
+        persona.save(persona1);
+
         model.addAttribute("titulo", "Titulo de la pagina prueba 222");
-        model.addAttribute("mensaje", "Mandando datos a la misma plantilla");
+        model.addAttribute("mensaje", "Agregando un registro a la base de datos");
 
         return "/thymeleaf/holamundo";
     }
+
+    // ejemplo de como listar datos para mostrarlo en la vista
+    @RequestMapping(path = "/listar")
+    public String listar(Model model){
+
+        // Aqui puedo agregar la logica de negocio en la que implementare Ipersona
+
+        // Ejemplo de como devolver la lista de personas que estan guardadas  en una vista
+
+
+        model.addAttribute("listaPersonas", persona.findAll());
+
+        return "/thymeleaf/listar";
+    }
+
 
 
     // Ejemplo de como mandar datos por defecto

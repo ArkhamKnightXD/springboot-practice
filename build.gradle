@@ -19,4 +19,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	
+	//Incluyendo el módulo de seguridad. Esto es lo que se encarga de trabajar con la seguridad del sistema
+	// Despues de que agregue esto, para entrar a cualquier ruta de la aplicacion nos pedira que nos logueemos 
+	// el usuario por defecto es user y la clase nos la dan en la consola a la hora de compilar
+	compile('org.springframework.boot:spring-boot-starter-security')
+	
+	compile("org.springframework.boot:spring-boot-devtools")
+	
+
 }
